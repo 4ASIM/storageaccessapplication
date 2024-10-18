@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="start"
+    android:padding="16dp">
+
+    <!-- TextViews for Filled and Remaining Storage -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/filledStorageTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Filled Storage: 0 GB"
+            android:layout_marginRight="16dp"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/remainingStorageTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Remaining Storage: 0 GB"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- Horizontal ProgressBar -->
+    <ProgressBar
+        android:id="@+id/storageProgressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:progress="0"
+        android:progressTint="@android:color/holo_blue_light"
+        android:indeterminate="false"
+        />
+
+    <!-- TextView showing percentage -->
+    <TextView
+        android:id="@+id/storagePercentageTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Storage Used: 0%"
+        android:layout_marginTop="16dp"
+        android:textSize="18sp" />
+</LinearLayout>

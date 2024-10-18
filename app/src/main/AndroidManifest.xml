@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,6 +17,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Storageaccessapplication"
         tools:targetApi="31">
+        <activity
+            android:name=".audiovideoimage.audiovideoimages"
+            android:exported="false" />
+        <activity
+            android:name=".Dashboard.Dashboard"
+            android:exported="false"
+            android:label="@string/title_activity_dashboard"
+            android:theme="@style/Theme.Storageaccessapplication" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
