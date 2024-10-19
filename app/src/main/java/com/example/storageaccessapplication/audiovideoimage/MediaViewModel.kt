@@ -3,6 +3,7 @@ package com.example.storageaccessapplication.audiovideoimage
 import android.app.Application
 import android.content.ContentUris
 import android.content.Context
+import android.provider.ContactsContract
 import android.provider.MediaStore
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -25,6 +26,7 @@ class MediaViewModel(application: Application) : AndroidViewModel(application) {
                 MediaStore.Audio.Media._ID,
                 MediaStore.Audio.Media.DISPLAY_NAME,
                 MediaStore.Audio.Media.SIZE
+
             )
 
             MediaType.IMAGE -> arrayOf(
@@ -32,12 +34,19 @@ class MediaViewModel(application: Application) : AndroidViewModel(application) {
                 MediaStore.Images.Media.DISPLAY_NAME,
                 MediaStore.Images.Media.SIZE
             )
+            MediaType.CONTACT -> arrayOf(
+                ContactsContract.Contacts._ID,
+                ContactsContract.Contacts.DISPLAY_NAME
+            )
+            else -> throw IllegalArgumentException("Unsupported media type: $mediaType")
         }
 
         val uri = when (mediaType) {
             MediaType.VIDEO -> MediaStore.Video.Media.EXTERNAL_CONTENT_URI
             MediaType.AUDIO -> MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
             MediaType.IMAGE -> MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            MediaType.AUDIO -> ContactsContract.Contacts.CONTENT_URI
+            else -> throw IllegalArgumentException("Unsupported media type: $mediaType")
         }
 
         val cursor = context.contentResolver.query(uri, projection, null, null, null)
@@ -54,9 +63,21 @@ class MediaViewModel(application: Application) : AndroidViewModel(application) {
                 val sizeInMB = sizeInKB / 1024.0
                 val formattedSizeInMB = String.format("%.0f MB", sizeInMB)
                 val contentUri = ContentUris.withAppendedId(uri, id)
-                mediaList.add(MediaModel(contentUri, name, formattedSizeInMB))
+                val maxLength = 8
+                val shortenedName = if (name.length > maxLength) {
+                    name.substring(0, maxLength)
+                } else {
+                    name
+                }
+
+                mediaList.add(MediaModel(contentUri, shortenedName, formattedSizeInMB))
             }
         }
         _mediaItems.value = mediaList
     }
 }
+
+
+
+
+

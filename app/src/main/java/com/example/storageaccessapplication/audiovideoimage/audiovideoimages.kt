@@ -7,8 +7,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.view.View
-import android.widget.GridView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -16,12 +14,14 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.storageaccessapplication.R
+import com.example.storageaccessapplication.databinding.ActivityAudiovideoimagesBinding
 
 class audiovideoimages : AppCompatActivity() {
+
     private lateinit var viewModel: MediaViewModel
-    private lateinit var gvGallery: GridView
+    private lateinit var binding: ActivityAudiovideoimagesBinding
     private lateinit var adapter: MediaAdapter
-    private var mediaType: MediaType = MediaType.VIDEO // Default to video
+    private var mediaType: MediaType = MediaType.VIDEO
 
     private val STORAGE_PERMISSION_CODE = 1001
     private var permissionRequestCount = 0
@@ -29,19 +29,19 @@ class audiovideoimages : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_audiovideoimages) // Make sure this layout file exists
 
-        gvGallery = findViewById(R.id.gv_audiovideoimages)
+        binding = ActivityAudiovideoimagesBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         adapter = MediaAdapter(this, emptyList())
-        gvGallery.adapter = adapter
+        binding.gvAudiovideoimages.adapter = adapter
 
         viewModel = ViewModelProvider(this).get(MediaViewModel::class.java)
         viewModel.mediaItems.observe(this) { items ->
             adapter.updateItems(items)
         }
 
-        // Check which media type to load
+
         mediaType = intent.getSerializableExtra("MEDIA_TYPE") as MediaType
         checkPermissionsAndFetchMedia()
     }
@@ -54,16 +54,14 @@ class audiovideoimages : AppCompatActivity() {
                 MediaType.VIDEO -> permissions.add(Manifest.permission.READ_MEDIA_VIDEO)
                 MediaType.IMAGE -> permissions.add(Manifest.permission.READ_MEDIA_IMAGES)
                 MediaType.AUDIO -> permissions.add(Manifest.permission.READ_MEDIA_AUDIO)
+                MediaType.CONTACT -> permissions.add(Manifest.permission.READ_CONTACTS)
             }
         } else {
             permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE)
         }
 
-        // Adding additional permissions for documents and contacts
-        permissions.add(Manifest.permission.READ_CONTACTS) // Contact permission
-//        permissions.add(Manifest.permission.READ_MEDIA_DOCUMENTS) // Document permission (API 33+)
+        permissions.add(Manifest.permission.READ_CONTACTS)
 
-        // Request permissions if not granted
         if (permissions.any { ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED }) {
             ActivityCompat.requestPermissions(this, permissions.toTypedArray(), STORAGE_PERMISSION_CODE)
         } else {

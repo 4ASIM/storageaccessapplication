@@ -11,6 +11,7 @@ import com.example.storageaccessapplication.audiovideoimage.MediaType
 import com.example.storageaccessapplication.audiovideoimage.audiovideoimages
 import com.example.storageaccessapplication.databinding.ActivityDashboardBinding
 
+
 class Dashboard : AppCompatActivity() {
 
     private lateinit var binding: ActivityDashboardBinding
@@ -39,13 +40,20 @@ class Dashboard : AppCompatActivity() {
         }
 
 
-//        val videoCard = findViewById<CardView>(R.id.clothingCard)
-//        videoCard.setOnClickListener {
-//            val intent = Intent(this, video::class.java).apply {
-//
-//            }
-//            startActivity(intent)
-//        }
+        val audioCard = findViewById<RelativeLayout>(R.id.rv_audio)
+        audioCard.setOnClickListener {
+            val intent = Intent(this, audiovideoimages::class.java).apply {
+                putExtra("MEDIA_TYPE", MediaType.AUDIO)
+            }
+            startActivity(intent)
+        }
+        val contactCard = findViewById<RelativeLayout>(R.id.rl_contact)
+        audioCard.setOnClickListener {
+            val intent = Intent(this, audiovideoimages::class.java).apply {
+                putExtra("MEDIA_TYPE", MediaType.AUDIO)
+            }
+            startActivity(intent)
+        }
 //
 //        val imageCard = findViewById<CardView>(R.id.contacttt)
 //        imageCard.setOnClickListener {

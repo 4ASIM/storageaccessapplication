@@ -43,7 +43,9 @@ class MediaAdapter(private val context: Context, private var items: List<MediaMo
         fun bind(item: MediaModel) {
             Glide.with(context)
                 .load(item.mediaUri)
+                .placeholder(R.drawable.volume)
                 .into(imageView)
+
 
             nameTextView.text = item.mediaName
             sizeTextView.text = item.mediaSize
