@@ -1,4 +1,5 @@
 package com.example.storageaccessapplication.audiovideoimage
 
-class MediaType {
+enum class MediaType {
+    IMAGE, VIDEO, AUDIO
 }

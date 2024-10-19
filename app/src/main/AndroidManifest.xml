@@ -3,9 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_DOCUMENTS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:allowBackup="true"
@@ -17,6 +19,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Storageaccessapplication"
         tools:targetApi="31">
+        <activity
+            android:name=".audiovideoimage.ImageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".audiovideoimage.video"
+            android:exported="false" />
         <activity
             android:name=".audiovideoimage.audiovideoimages"
             android:exported="false" />
