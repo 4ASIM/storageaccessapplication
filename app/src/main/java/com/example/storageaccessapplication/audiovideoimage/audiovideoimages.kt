@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import com.example.storageaccessapplication.R
 import com.example.storageaccessapplication.databinding.ActivityAudiovideoimagesBinding
 
 class audiovideoimages : AppCompatActivity() {
@@ -30,7 +29,6 @@ class audiovideoimages : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Initialize ViewBinding
         binding = ActivityAudiovideoimagesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -73,8 +71,17 @@ class audiovideoimages : AppCompatActivity() {
             }
         }
 
-        if (permissions.any { ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED }) {
-            ActivityCompat.requestPermissions(this, permissions.toTypedArray(), STORAGE_PERMISSION_CODE)
+        if (permissions.any {
+                ContextCompat.checkSelfPermission(
+                    this,
+                    it
+                ) != PackageManager.PERMISSION_GRANTED
+            }) {
+            ActivityCompat.requestPermissions(
+                this,
+                permissions.toTypedArray(),
+                STORAGE_PERMISSION_CODE
+            )
         } else {
             fetchMedia()
         }
@@ -101,7 +108,11 @@ class audiovideoimages : AppCompatActivity() {
                 permissionRequestCount++
 
                 if (permissionRequestCount < MAX_PERMISSION_REQUESTS) {
-                    Toast.makeText(this, "Permission denied. Attempting again...", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        "Permission denied. Attempting again...",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     checkPermissionsAndFetchMedia()
                 } else {
                     showPermissionSettingsDialog()

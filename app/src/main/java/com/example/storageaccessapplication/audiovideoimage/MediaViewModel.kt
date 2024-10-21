@@ -37,7 +37,6 @@ class MediaViewModel(application: Application) : AndroidViewModel(application) {
                 uri = MediaStore.Files.getContentUri("external")
             }
             MediaType.CONTACT -> {
-
                 fetchContacts(context)
                 return
             }
@@ -78,7 +77,6 @@ class MediaViewModel(application: Application) : AndroidViewModel(application) {
             ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
             ContactsContract.CommonDataKinds.Phone.NUMBER
         )
-
         val cursor = context.contentResolver.query(uri, projection, null, null, null)
 
         cursor?.use {

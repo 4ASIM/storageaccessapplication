@@ -32,7 +32,8 @@ class MediaAdapter(
                 val binding = CvShowdocumentsBinding.inflate(LayoutInflater.from(context), parent, false)
                 viewHolder = MediaViewHolder(binding)
                 view = binding.root
-            } else {
+            }
+            else {
                 val binding = CvShowimagesBinding.inflate(LayoutInflater.from(context), parent, false)
                 viewHolder = MediaViewHolder(binding)
                 view = binding.root
@@ -75,6 +76,15 @@ class MediaAdapter(
                     imageBinding?.tvName?.text = item.mediaName
                     imageBinding?.tvSize?.text = item.mediaSize
                 }
+                MediaType.VIDEO -> {
+                    Glide.with(context)
+                        .load(item.mediaUri)
+                        .placeholder(R.drawable.animated_loader_gif)
+                        .into(imageBinding!!.ivImage)
+                    imageBinding?.ivImagess?.setImageResource(R.drawable.video)
+                    imageBinding?.tvName?.text = item.mediaName
+                    imageBinding?.tvSize?.text = item.mediaSize
+                }
                 else -> {
                     Glide.with(context)
                         .load(item.mediaUri)
@@ -86,7 +96,6 @@ class MediaAdapter(
             }
         }
     }
-
     fun updateItems(newItems: List<MediaModel>) {
         items = newItems
         notifyDataSetChanged()

@@ -16,7 +16,7 @@
             android:background="@color/lavender"
             android:fontFamily="@font/robot"
             android:gravity="center"
-            android:text="SMART STORAGE"
+            android:text="@string/tv_appName"
             android:textSize="35dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="0 GB"
+            android:text="@string/tv_storage"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/storageProgressBar"
             app:layout_constraintTop_toBottomOf="@+id/tv_heading" />
@@ -36,7 +36,7 @@
             android:id="@+id/remainingStorageTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0 GB"
+            android:text="@string/tv_storage"
             android:textSize="16sp"
             app:layout_constraintTop_toBottomOf="@+id/tv_heading"
             android:layout_marginTop="20dp"
@@ -61,13 +61,12 @@
 
             />
 
-        <!-- TextView showing percentage -->
         <TextView
             android:id="@+id/storagePercentageTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Storage Used: 0%"
+            android:text="@string/tv_totalstorage"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="@+id/remainingStorageTextView"
             app:layout_constraintStart_toStartOf="@+id/filledStorageTextView"
@@ -107,7 +106,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/bangers"
-                        android:text="Videos"
+                        android:text="@string/tv_videos"
                         android:textColor="@color/lavender"
                         android:textSize="20sp" />
 
@@ -147,7 +146,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/bangers"
-                        android:text="Images"
+                        android:text="@string/tv_images"
                         android:textColor="@color/lavender"
                         android:textSize="20sp" />
 
@@ -197,7 +196,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/bangers"
-                        android:text="Contacts"
+                        android:text="@string/tv_contact"
                         android:textColor="@color/lavender"
                         android:textSize="20sp" />
 
@@ -235,7 +234,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/bangers"
-                        android:text="Audios"
+                        android:text="@string/tv_audio"
                         android:textColor="@color/lavender"
                         android:textSize="20sp" />
 
@@ -285,7 +284,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/bangers"
-                        android:text="Documents"
+                        android:text="@string/tv_document"
                         android:textColor="@color/lavender"
                         android:textSize="20sp" />
 
