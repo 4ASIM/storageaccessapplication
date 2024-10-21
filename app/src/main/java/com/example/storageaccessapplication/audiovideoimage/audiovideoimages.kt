@@ -8,8 +8,6 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
-import android.widget.GridView
-import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -17,12 +15,12 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.storageaccessapplication.R
+import com.example.storageaccessapplication.databinding.ActivityAudiovideoimagesBinding
 
 class audiovideoimages : AppCompatActivity() {
     private lateinit var viewModel: MediaViewModel
-    private lateinit var gvGallery: GridView
-    private lateinit var listView: ListView
     private lateinit var adapter: MediaAdapter
+    private lateinit var binding: ActivityAudiovideoimagesBinding
     private var mediaType: MediaType = MediaType.VIDEO
 
     private val STORAGE_PERMISSION_CODE = 1001
@@ -31,23 +29,23 @@ class audiovideoimages : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_audiovideoimages)
+
+        // Initialize ViewBinding
+        binding = ActivityAudiovideoimagesBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         mediaType = intent.getSerializableExtra("MEDIA_TYPE") as MediaType
-
-        gvGallery = findViewById(R.id.gv_audiovideoimages)
-        listView = findViewById(R.id.list_view)
 
         adapter = MediaAdapter(this, emptyList(), mediaType)
 
         if (mediaType == MediaType.DOCUMENT || mediaType == MediaType.CONTACT) {
-            listView.visibility = View.VISIBLE
-            gvGallery.visibility = View.GONE
-            listView.adapter = adapter
+            binding.listView.visibility = View.VISIBLE
+            binding.gvAudiovideoimages.visibility = View.GONE
+            binding.listView.adapter = adapter
         } else {
-            gvGallery.visibility = View.VISIBLE
-            listView.visibility = View.GONE
-            gvGallery.adapter = adapter
+            binding.gvAudiovideoimages.visibility = View.VISIBLE
+            binding.listView.visibility = View.GONE
+            binding.gvAudiovideoimages.adapter = adapter
         }
 
         viewModel = ViewModelProvider(this).get(MediaViewModel::class.java)
@@ -73,9 +71,6 @@ class audiovideoimages : AppCompatActivity() {
             if (mediaType == MediaType.CONTACT) {
                 permissions.add(Manifest.permission.READ_CONTACTS)
             }
-//            else if (mediaType == MediaType.DOCUMENT) {
-//                permissions.add(Manifest.permission.READ_CONTACTS)
-//            }
         }
 
         if (permissions.any { ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED }) {
