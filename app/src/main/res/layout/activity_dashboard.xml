@@ -77,10 +77,8 @@
         <LinearLayout
             android:id="@+id/row1"
             android:layout_width="0dp"
-            android:layout_height="175dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -90,11 +88,12 @@
                 android:id="@+id/cv_videos"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:clickable="true"
+                app:cardUseCompatPadding="true"
                 app:cardCornerRadius="20dp"
-                app:cardElevation="20dp">
+                app:cardElevation="5dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -127,11 +126,12 @@
                 android:id="@+id/cv_imagess"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:clickable="true"
+                app:cardUseCompatPadding="true"
                 app:cardCornerRadius="20dp"
-                app:cardElevation="20dp">
+                app:cardElevation="5dp">
 
                 <RelativeLayout
                     android:id="@+id/rl_images"
@@ -165,11 +165,9 @@
 
         <LinearLayout
             android:id="@+id/row2"
-            android:layout_width="0dp"
-            android:layout_height="175dp"
-            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -179,11 +177,12 @@
                 android:id="@+id/contacttt"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:clickable="true"
                 app:cardCornerRadius="20dp"
-                app:cardElevation="20dp">
+                app:cardUseCompatPadding="true"
+                app:cardElevation="5dp">
 
                 <RelativeLayout
                     android:id="@+id/rl_contact"
@@ -216,11 +215,12 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:layout_margin="5dp"
                 android:clickable="true"
+                app:cardUseCompatPadding="true"
                 app:cardCornerRadius="20dp"
-                app:cardElevation="20dp">
+                app:cardElevation="5dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -254,8 +254,7 @@
         <LinearLayout
             android:id="@+id/row3"
             android:layout_width="0dp"
-            android:layout_height="175dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -269,9 +268,10 @@
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
+                app:cardUseCompatPadding="true"
                 android:clickable="true"
                 app:cardCornerRadius="20dp"
-                app:cardElevation="20dp">
+                app:cardElevation="5dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"

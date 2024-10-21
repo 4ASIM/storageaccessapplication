@@ -22,7 +22,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/storagelogo"
+            android:src="@drawable/volume"
             android:id="@+id/iv_image"
             />
 

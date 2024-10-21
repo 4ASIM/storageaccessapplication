@@ -47,29 +47,21 @@ class Dashboard : AppCompatActivity() {
             }
             startActivity(intent)
         }
-        val contactCard = findViewById<RelativeLayout>(R.id.rl_contact)
-        audioCard.setOnClickListener {
+        val DocumentCard = findViewById<CardView>(R.id.documentt)
+        DocumentCard.setOnClickListener {
             val intent = Intent(this, audiovideoimages::class.java).apply {
-                putExtra("MEDIA_TYPE", MediaType.AUDIO)
+                putExtra("MEDIA_TYPE", MediaType.DOCUMENT)
             }
             startActivity(intent)
         }
-//
-//        val imageCard = findViewById<CardView>(R.id.contacttt)
-//        imageCard.setOnClickListener {
-//            val intent = Intent(this, video::class.java).apply {
-//
-//          }
-//          startActivity(intent)
-//        }
-//
-//        val audioCard = findViewById<CardView>(R.id.tv_Audio)
-//        audioCard.setOnClickListener {
-//            val intent = Intent(this, audiovideoimages::class.java).apply {
-//                putExtra("MEDIA_TYPE", MediaType.AUDIO)
-//            }
-//            startActivity(intent)
-//        }
+
+        val contactCard = findViewById<CardView>(R.id.contacttt)
+        contactCard.setOnClickListener {
+            val intent = Intent(this, audiovideoimages::class.java).apply {
+                putExtra("MEDIA_TYPE", MediaType.CONTACT)
+          }
+          startActivity(intent)
+        }
     }
 
     private fun updateStorageInfo() {

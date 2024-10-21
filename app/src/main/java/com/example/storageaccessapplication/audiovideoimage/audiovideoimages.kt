@@ -7,6 +7,9 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.view.View
+import android.widget.GridView
+import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -14,12 +17,11 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.storageaccessapplication.R
-import com.example.storageaccessapplication.databinding.ActivityAudiovideoimagesBinding
 
 class audiovideoimages : AppCompatActivity() {
-
     private lateinit var viewModel: MediaViewModel
-    private lateinit var binding: ActivityAudiovideoimagesBinding
+    private lateinit var gvGallery: GridView
+    private lateinit var listView: ListView
     private lateinit var adapter: MediaAdapter
     private var mediaType: MediaType = MediaType.VIDEO
 
@@ -29,20 +31,30 @@ class audiovideoimages : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_audiovideoimages)
 
-        binding = ActivityAudiovideoimagesBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        mediaType = intent.getSerializableExtra("MEDIA_TYPE") as MediaType
 
-        adapter = MediaAdapter(this, emptyList())
-        binding.gvAudiovideoimages.adapter = adapter
+        gvGallery = findViewById(R.id.gv_audiovideoimages)
+        listView = findViewById(R.id.list_view)
+
+        adapter = MediaAdapter(this, emptyList(), mediaType)
+
+        if (mediaType == MediaType.DOCUMENT || mediaType == MediaType.CONTACT) {
+            listView.visibility = View.VISIBLE
+            gvGallery.visibility = View.GONE
+            listView.adapter = adapter
+        } else {
+            gvGallery.visibility = View.VISIBLE
+            listView.visibility = View.GONE
+            gvGallery.adapter = adapter
+        }
 
         viewModel = ViewModelProvider(this).get(MediaViewModel::class.java)
         viewModel.mediaItems.observe(this) { items ->
             adapter.updateItems(items)
         }
 
-
-        mediaType = intent.getSerializableExtra("MEDIA_TYPE") as MediaType
         checkPermissionsAndFetchMedia()
     }
 
@@ -54,13 +66,17 @@ class audiovideoimages : AppCompatActivity() {
                 MediaType.VIDEO -> permissions.add(Manifest.permission.READ_MEDIA_VIDEO)
                 MediaType.IMAGE -> permissions.add(Manifest.permission.READ_MEDIA_IMAGES)
                 MediaType.AUDIO -> permissions.add(Manifest.permission.READ_MEDIA_AUDIO)
-                MediaType.CONTACT -> permissions.add(Manifest.permission.READ_CONTACTS)
+                MediaType.DOCUMENT, MediaType.CONTACT -> permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE)
             }
         } else {
             permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE)
+            if (mediaType == MediaType.CONTACT) {
+                permissions.add(Manifest.permission.READ_CONTACTS)
+            }
+//            else if (mediaType == MediaType.DOCUMENT) {
+//                permissions.add(Manifest.permission.READ_CONTACTS)
+//            }
         }
-
-        permissions.add(Manifest.permission.READ_CONTACTS)
 
         if (permissions.any { ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED }) {
             ActivityCompat.requestPermissions(this, permissions.toTypedArray(), STORAGE_PERMISSION_CODE)
@@ -70,7 +86,11 @@ class audiovideoimages : AppCompatActivity() {
     }
 
     private fun fetchMedia() {
-        viewModel.fetchMedia(this, mediaType)
+        if (mediaType == MediaType.CONTACT) {
+            viewModel.fetchContacts(this)
+        } else {
+            viewModel.fetchMedia(this, mediaType)
+        }
     }
 
     override fun onRequestPermissionsResult(

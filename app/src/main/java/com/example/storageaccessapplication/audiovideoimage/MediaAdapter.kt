@@ -10,7 +10,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.storageaccessapplication.R
 
-class MediaAdapter(private val context: Context, private var items: List<MediaModel>) : BaseAdapter() {
+class MediaAdapter(private val context: Context, private var items: List<MediaModel>, private val mediaType: MediaType) : BaseAdapter() {
 
     override fun getCount(): Int = items.size
 
@@ -23,7 +23,12 @@ class MediaAdapter(private val context: Context, private var items: List<MediaMo
         val viewHolder: MediaViewHolder
 
         if (convertView == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.cv_showimages, parent, false)
+            // Choose layout based on media type
+            view = if (mediaType == MediaType.DOCUMENT || mediaType == MediaType.CONTACT) {
+                LayoutInflater.from(context).inflate(R.layout.cv_showdocuments, parent, false)
+            } else {
+                LayoutInflater.from(context).inflate(R.layout.cv_showimages, parent, false)
+            }
             viewHolder = MediaViewHolder(view)
             view.tag = viewHolder
         } else {
@@ -36,19 +41,41 @@ class MediaAdapter(private val context: Context, private var items: List<MediaMo
     }
 
     inner class MediaViewHolder(itemView: View) {
-        private val imageView: ImageView = itemView.findViewById(R.id.iv_image)
+        private val imageView: ImageView? = itemView.findViewById(R.id.iv_image)
+        private val iconView: ImageView? = itemView.findViewById(R.id.iv_icon)
         private val nameTextView: TextView = itemView.findViewById(R.id.tv_name)
         private val sizeTextView: TextView = itemView.findViewById(R.id.tv_size)
 
         fun bind(item: MediaModel) {
-            Glide.with(context)
-                .load(item.mediaUri)
-                .placeholder(R.drawable.volume)
-                .into(imageView)
+            when (mediaType) {
+                MediaType.DOCUMENT -> {
+                    iconView?.setImageResource(R.drawable.doc)
+                    imageView?.visibility = View.GONE
+                }
+                MediaType.CONTACT -> {
+                    iconView?.setImageResource(R.drawable.contacts)
+                    imageView?.visibility = View.GONE
+                    sizeTextView.text = item.mediaSize
+                }
+                MediaType.AUDIO -> {
+                    iconView?.setImageResource(R.drawable.volume)
+                }
+                else -> {
+                    Glide.with(context)
+                        .load(item.mediaUri)
+                        .placeholder(R.drawable.animated_loader_gif)
+                        .into(imageView!!)
+                    iconView?.visibility = View.GONE
 
+                }
+            }
 
             nameTextView.text = item.mediaName
-            sizeTextView.text = item.mediaSize
+            if (mediaType != MediaType.CONTACT) {
+                sizeTextView.text = item.mediaSize
+            } else {
+                sizeTextView.text = item.mediaSize
+            }
         }
     }
 
