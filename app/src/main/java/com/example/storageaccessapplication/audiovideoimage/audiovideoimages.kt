@@ -50,7 +50,6 @@ class audiovideoimages : AppCompatActivity() {
         viewModel.mediaItems.observe(this) { items ->
             adapter.updateItems(items)
         }
-
         checkPermissionsAndFetchMedia()
     }
 
